@@ -4,13 +4,15 @@ const mongoose = require('mongoose');
 // Initialize
 const app = express();
 
+// env config
+require('dotenv').config();
+
 // Routes
 const posts = require('./routes/api/post');
 
 // Database config
-const db = require('./config/keys').mongoURI;
 mongoose
-  .connect(db, { useNewUrlParser: true })
+  .connect(process.env.mongoURI, { useNewUrlParser: true })
   .then(res => console.log('Database connected'))
   .catch(err => console.log(err));
 
