@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const redis = require('redis');
+const errorHandler = require('./helpers/error-handler');
 
-// Initialize
+// initialize
 const app = express();
 
 // env config
@@ -10,9 +12,9 @@ require('dotenv').config();
 // Routes
 const posts = require('./routes/api/post');
 
-// Database config
+// mongo config
 mongoose
-  .connect(process.env.mongoURI, { useNewUrlParser: true })
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true })
   .then(res => console.log('Database connected'))
   .catch(err => console.log(err));
 
@@ -22,6 +24,10 @@ app.use(express.json());
 
 // Router middleware
 app.use('/api/posts', posts);
+
+app.use('/api/books', require('./controllers/book.controller'));
+
+app.use(errorHandler);
 
 const port = 5000 || process.env.PORT;
 
