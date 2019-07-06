@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const redis = require('redis');
 const errorHandler = require('./helpers/error-handler');
 
 // initialize
@@ -19,8 +18,10 @@ mongoose
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
+// routes
 app.use('/api/books', require('./controllers/book.controller'));
+app.use('/api/users', require('./controllers/user.controller'));
+
 
 app.use(errorHandler);
 
