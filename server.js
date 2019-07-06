@@ -9,9 +9,6 @@ const app = express();
 // env config
 require('dotenv').config();
 
-// Routes
-const posts = require('./routes/api/post');
-
 // mongo config
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true })
@@ -22,8 +19,6 @@ mongoose
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Router middleware
-app.use('/api/posts', posts);
 
 app.use('/api/books', require('./controllers/book.controller'));
 
