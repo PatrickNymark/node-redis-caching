@@ -1,30 +1,18 @@
-const redis = require('redis');
-const util = require('util');
-
-// redis config
-const client = redis.createClient(process.env.REDIS_URI);
-
 const Book = require('../models/Book');
 
 module.exports = {
   createBook,
-  getBooksByGenre
+  getBooksByGenre,
+  getAllBooks
 }
 
 /**
  * Create book.
- * @param {String} title a string that represents a book's title.
- * @param {Number} pages a number that represents a book's number of pages.
- * @param {Number} genre a string that represents a book's genre.
- * @param {String} author a string that represents a author's id.
+ * @param {Object} bookData a object that represents a book.
  * @returns A Promise or exception.
  */
-async function createBook(title, pages, genre, author) {
-  client.get = util.promisify(client.get);
-
-  const cachedBooks = client.get()
-
-  const book = new Book({ title, pages, genre, author });
+async function createBook(bookData) {
+  const book = new Book(bookData);
 
   return book.save();
 }
@@ -34,6 +22,16 @@ async function createBook(title, pages, genre, author) {
  * @param {String} genre a string that represents a book's genre
  * @returns A Promise or exception 
  */
-async function getBooksByGenre(genre) {
-  return Book.find({ genre });
+async function getBooksByGenre(genre, user) {
+  const books = Book.find({ genre });
+
+  return books;
+}
+
+/**
+ * Get all books
+ * @returns A Promise or exception 
+ */
+async function getAllBooks() {
+  return await Book.find();
 }
