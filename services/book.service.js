@@ -1,4 +1,5 @@
 const Book = require('../models/Book');
+require('../helpers/cache');
 
 module.exports = {
   createBook,
@@ -23,7 +24,7 @@ async function createBook(bookData) {
  * @returns A Promise or exception 
  */
 async function getBooksByGenre(genre, user) {
-  const books = Book.find({ genre });
+  const books = Book.find({ genre }).cache({ key: user.sub });
 
   return books;
 }
@@ -33,5 +34,5 @@ async function getBooksByGenre(genre, user) {
  * @returns A Promise or exception 
  */
 async function getAllBooks() {
-  return await Book.find();
+  return await Book.find().cache();
 }
