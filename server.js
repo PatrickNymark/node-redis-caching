@@ -8,6 +8,9 @@ const app = express();
 // env config
 require('dotenv').config();
 
+// cache config
+require('./helpers/cache');
+
 // mongo config
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true })

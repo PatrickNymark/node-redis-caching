@@ -29,7 +29,12 @@ mongoose.Query.prototype.exec = async function () {
   // check redis for value
   const cachedValue = await client.hget(this.hashKey, key);
   if(cachedValue) {
-    return JSON.parse(cachedValue);
+    const doc = JSON.parse(cachedValue);
+    // mongoose exec excepts a mongoose model to be returned
+    // therefore, convert cached value to mongoose model.
+    return Array.isArray(doc) 
+      ? doc.map(d => new this.model(d)) 
+      : new this.model(doc); 
   }
 
   // issue query and store result in redis
