@@ -1,10 +1,10 @@
 const Book = require('../models/Book');
-require('../helpers/cache');
 
 module.exports = {
   createBook,
   getBooksByGenre,
-  getAllBooks
+  getAllBooks,
+  getBooksByPages
 }
 
 /**
@@ -30,9 +30,20 @@ async function getBooksByGenre(genre, user) {
 }
 
 /**
+ * Find books by number of pages
+ * @param {Number} pages a number that represents a book's pages
+ * @returns A Promise or exception 
+ */
+async function getBooksByPages(pages) {
+  const books = Book.find({ pages }).cache();
+
+  return books;
+}
+
+/**
  * Get all books
  * @returns A Promise or exception 
  */
 async function getAllBooks() {
-  return await Book.find().cache();
+  return await Book.find();
 }

@@ -5,7 +5,8 @@ const authorize = require('../helpers/authentication');
 
 router.post('/', createBook);
 router.get('/', getAllBooks);
-router.get('/:genre', authorize(), getBooksByGenre);
+router.get('/', authorize(), getBooksByGenre);
+router.get('/', getBooksByPages);
 //router.get('/', postService.getAll);
 
 module.exports = router;
@@ -17,13 +18,19 @@ function createBook(req, res, next) {
 }
 
 function getBooksByGenre(req, res, next) {
-  bookService.getBooksByGenre(req.params.genre, req.user)
+  bookService.getBooksByGenre(req.query.genre, req.user)
     .then(books => res.json(books))
     .catch(err => next(err)) 
 }
 
 function getAllBooks(req, res, next) {
   bookService.getAllBooks()
+    .then(books => res.json(books))
+    .catch(err => next(err))
+}
+
+function getBooksByPages(req, res, next) {
+  bookService.getBooksByPages(req.query.pages)
     .then(books => res.json(books))
     .catch(err => next(err))
 }
