@@ -1,16 +1,29 @@
-import React from 'react';
+import React,  { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { authActions } from './actions';
+
 import Navbar from './components/Navbar';
 import Routes from './components/Routes';
 import { history } from './helpers';
 
-function App() {
-  return (
-    <Router history={history}>
-        <Navbar />
-        <Routes Route={Route} />
-    </Router>
-  );
+class App extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(authActions.getCurrent());
+  }
+  
+  render() {
+    return (
+        <Router history={history}>
+          <div className="app">
+            <Navbar />
+            <Routes Route={Route} />
+          </div>
+        </Router>
+    );
+  }
 }
 
-export default App;
+const connectedApp = connect(null)(App);
+export { connectedApp as App }

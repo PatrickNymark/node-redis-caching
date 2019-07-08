@@ -1,13 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const redis = require('redis');
 
 const User = require('../models/User');
-
-// redis config
-const client = redis.createClient(process.env.REDIS_URI);
-
-const Book = require('../models/Book');
 
 module.exports = {
   login,
