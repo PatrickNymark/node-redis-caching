@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const errorHandler = require('./helpers/error-handler');
+const logger = require('morgan');
+
 
 // initialize
 const app = express();
@@ -8,14 +10,17 @@ const app = express();
 // env config
 require('dotenv').config();
 
-// cache config
-require('./helpers/cache');
+// logger
+app.use(logger('dev'));
 
 // mongo config
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true })
   .then(res => console.log('Database connected'))
   .catch(err => console.log(err));
+
+// cache config
+require('./helpers/cache');
 
 // Body-parser middleware
 app.use(express.urlencoded({ extended: true }));

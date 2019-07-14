@@ -1,10 +1,11 @@
 import React,  { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { authActions } from './actions';
+import './style.css'
 
-import Navbar from './components/Navbar';
-import Routes from './components/Routes';
+import { authActions } from './actions';
+import { Navbar } from './components/Navbar';
+import Routes from './components/routing/Routes';
 import { history } from './helpers';
 
 class App extends Component {
