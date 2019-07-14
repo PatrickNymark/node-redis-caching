@@ -29,7 +29,7 @@ app.use(express.json());
 // routes
 app.use('/api/books', require('./controllers/book.controller'));
 app.use('/api/users', require('./controllers/user.controller'));
-
+app.use('/api/authors', require('./controllers/author.controller'));
 
 app.use(errorHandler);
 
