@@ -33,7 +33,8 @@ class Search extends Component {
     e.preventDefault();
 
     const { search } = this.state;
-    this.props.dispatch(bookActions.searchBooks(search))  
+    const { searchAction } = this.props;
+    this.props.dispatch(searchAction(search));  
   }
 
   render() {

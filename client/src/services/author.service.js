@@ -31,7 +31,7 @@ function getAllAuthors() {
  * @param {String} id represents a authors id
  */
 function getAuthorById(id) {
-  return axios.get(`/api/books/${id}`).then(response => {
+  return axios.get(`/api/authors/${id}`).then(response => {
     return response.data
   })
 }
@@ -40,7 +40,7 @@ function getAuthorById(id) {
  * Search authors
  * @param {String} query a string representing search value
  */
-function searchAuthors(query) {    
+function searchAuthors(query) { 
   return axios.get(`/api/authors/query?search=${query}`).then(response => {
     return response.data
   });

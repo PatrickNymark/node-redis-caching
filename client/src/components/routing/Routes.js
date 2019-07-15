@@ -7,6 +7,7 @@ import { PrivateRoute } from './PrivateRoute';
 import Dashboard from '../Dashboard';
 import { Authors } from '../authors/Authors';
 import Book from '../books/Book';
+import Author from '../authors/Author';
 
 const Routes = ({ Route }) => {
   return (
@@ -18,6 +19,7 @@ const Routes = ({ Route }) => {
       <Route exact path="/search" component={Search} />
       <PrivateRoute exact path="/dashboard" component={Dashboard} />
       <PrivateRoute exact path="/authors" component={Authors} />
+      <PrivateRoute exact path="/author/:id"  component={Author} />
     </div>
 
   )

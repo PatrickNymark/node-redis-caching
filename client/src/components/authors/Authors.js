@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { authorActions } from '../../actions';
 import './style.css';
+import { Search } from '../search/Search';
 
 class Authors extends Component {
   componentWillMount() {
@@ -15,6 +16,7 @@ class Authors extends Component {
     return (
       <div className="container text-center">
         <h1 className="mt-5 mb-5">Authors</h1>
+        <Search searchAction={authorActions.searchAuthors} />
         {loading && <img className="spinner" src={require('../images/Spinner.svg')} alt=""></img>}
         {!loading && <div className="row mx-md-n5">
           {authors.map(author => {
@@ -25,7 +27,7 @@ class Authors extends Component {
                     <h5 className="card-title">First Name: {author.firstName}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">Last Name: {author.lastName}</h6>
                     <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui non illo ipsum dolorem voluptatibus aliquam itaque sequi dolor, laudantium corporis?</p>
-                    <Link to="#" className="card-link">See author</Link>
+                    <Link to={`/author/${author._id}`} className="card-link">See author</Link>
                   </div>
                 </div>
               </div>
