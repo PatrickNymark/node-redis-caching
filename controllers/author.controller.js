@@ -3,10 +3,10 @@ const router = express.Router();
 const authorService = require('../services/author.service');
 const authorize = require('../helpers/authentication');
 
-router.post('/', createAuthor);
-router.get('/', getAllAuthors);
-router.get('/query', searchAuthors);
-router.get('/:id', getAuthorById);
+router.post('/', authorize(), createAuthor);
+router.get('/', authorize(), getAllAuthors);
+router.get('/query', authorize(), searchAuthors);
+router.get('/:id', authorize(), getAuthorById);
 
 module.exports = router;
 
@@ -17,19 +17,19 @@ function createAuthor(req, res, next) {
 }
 
 function getAllAuthors(req, res, next) {
-  authorService.getAllAuthors()
+  authorService.getAllAuthors(req.user.sub)
     .then(authors => res.json(authors))
     .catch(err => next(err))
 }
 
 function getAuthorById(req, res, next) {
-  authorService.getAuthorById(req.params.id)
+  authorService.getAuthorById(req.params.id, req.user.sub)
     .then(author => res.json(author))
     .catch(err => next(err))
 }
 
 function searchAuthors(req, res, next) {
-  authorService.searchAuthors(req.query)
+  authorService.searchAuthors(req.query, req.user.sub)
     .then(author => res.json(author))
     .catch(err => next(err))
 }

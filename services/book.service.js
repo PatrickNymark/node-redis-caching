@@ -45,5 +45,5 @@ async function searchBooks(query) {
       { title: { '$regex': query.search, '$options': 'i' } }, 
       { genre: { '$regex': query.search, '$options': 'i' } }
     ]
-  });
+  }).cache({ expire: 10 });
 }

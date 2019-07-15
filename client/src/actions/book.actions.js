@@ -19,9 +19,9 @@ function getAllBooks() {
             })
     };  
 
-    function request() { return { type: bookConstants.SEARCH_REQUEST } }
-    function success(books) { return { type: bookConstants.SEARCH_SUCCESS, books } }
-    function failure(error) { return { type: bookConstants.SEARCH_FAILURE, error } }
+    function request() { return { type: bookConstants.BOOKS_REQUEST } }
+    function success(books) { return { type: bookConstants.BOOKS_SUCCESS, books } }
+    function failure(error) { return { type: bookConstants.BOOKS_FAILURE, error } }
 }
 
 function searchBooks(query) {

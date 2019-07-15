@@ -3,7 +3,7 @@ const router = express.Router();
 const bookService = require('../services/book.service');
 const authorize = require('../helpers/authentication');
 
-router.post('/', createBook);
+router.post('/', authorize(), createBook);
 router.get('/', getAllBooks);
 router.get('/query', searchBooks);
 router.get('/:id', getBookById);
