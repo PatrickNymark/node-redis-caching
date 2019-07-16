@@ -17,6 +17,9 @@ const BookSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
     refs: 'authors'
+  },
+  image: {
+    type: String
   }
 });
 

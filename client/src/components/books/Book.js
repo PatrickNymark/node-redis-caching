@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+import { bookService } from '../../services';
 import axios from 'axios';
 
 class Book extends Component {
@@ -9,9 +10,9 @@ class Book extends Component {
   }
   componentDidMount() {
     const { id } = this.props.match.params;
-    axios.get(`/api/books/${id}`).then(response => {
+    bookService.getBookById(id).then(book => {
       this.setState({
-        book: response.data,
+        book,
         loading: false
       })
     })

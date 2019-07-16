@@ -41,7 +41,7 @@ class Search extends Component {
     return (
       <form onSubmit={this.handleSubmit} className="form-inline pt-4 pb-4">
         <input onChange={this.handleChange} className="form-control search-input" name="search" type="text" placeholder="Enter search" />
-        <button type="submit" className="ml-2 btn btn-small btn-primary search-button">Search</button>
+        <button type="submit" className="ml-2 btn btn-small search-button">Search</button>
       </form>
     )
   }
