@@ -1,0 +1,12 @@
+.card-book {
+  margin: 0 15px 15px 0;
+}
+
+.card-book:last-child { 
+  margin: 0 0 30px 0;
+}
+
+.spinner {
+  margin: 150px;
+  width: 80px;
+}

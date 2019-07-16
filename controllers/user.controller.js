@@ -10,7 +10,7 @@ module.exports = router;
 
 function login(req, res, next) {
   userService.login(req.body.email, req.body.password)
-    .then(user => res.json(user))
+    .then(user => user ? res.json(user) : res.status(400).json({ message: 'Password or email incorrect' }))
     .catch(err => next(err))
 }
 

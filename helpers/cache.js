@@ -10,7 +10,14 @@ const exec = mongoose.Query.prototype.exec;
 // cache function to be called before exec.
 mongoose.Query.prototype.cache = function(options = {}) {
   this.useCache = true;
+
+  // create dynamic redis key
+  this.key = JSON.stringify(Object.assign({}, this.getQuery(), {
+    collection: this.mongooseCollection.name
+  }));
+
   this.hashKey = JSON.stringify(options.key || '');
+  this.expire = JSON.stringify(options.expire || 60 * 60 );
 
   return this;
 }
@@ -21,13 +28,8 @@ mongoose.Query.prototype.exec = async function () {
     return exec.apply(this, arguments);
   }
 
-  // generate redis key
-  const key = JSON.stringify(Object.assign({}, this.getQuery(), {
-      collection: this.mongooseCollection.name
-  }));
-
   // check redis for value
-  const cachedValue = await client.hget(this.hashKey, key);
+  const cachedValue = await client.hget(this.hashKey, this.key);
   if(cachedValue) {
     const doc = JSON.parse(cachedValue);
     // mongoose exec excepts a mongoose model to be returned
@@ -39,9 +41,9 @@ mongoose.Query.prototype.exec = async function () {
 
   // issue query and store result in redis
   const result = await exec.apply(this, arguments);
-  client.hset(this.hashKey, key, JSON.stringify(result));
+  client.hset(this.hashKey, this.key, JSON.stringify(result));
   // expire in seconds
-  client.expire(key, 120);
+  client.expire(this.hashKey, this.expire);
 
   return result;
 } 

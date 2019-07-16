@@ -2,9 +2,9 @@ const Book = require('../models/Book');
 
 module.exports = {
   createBook,
-  getBooksByGenre,
   getAllBooks,
-  getBooksByPages
+  searchBooks,
+  getBookById
 }
 
 /**
@@ -15,35 +15,35 @@ module.exports = {
 async function createBook(bookData) {
   const book = new Book(bookData);
 
-  return book.save();
-}
+  return await book.save();
+};
 
 /**
- * Find books by genre
- * @param {String} genre a string that represents a book's genre
- * @returns A Promise or exception 
- */
-async function getBooksByGenre(genre, user) {
-  const books = Book.find({ genre }).cache({ key: user.sub });
-
-  return books;
-}
-
-/**
- * Find books by number of pages
- * @param {Number} pages a number that represents a book's pages
- * @returns A Promise or exception 
- */
-async function getBooksByPages(pages) {
-  const books = Book.find({ pages }).cache();
-
-  return books;
-}
-
-/**
- * Get all books
+ * Get all books.
  * @returns A Promise or exception 
  */
 async function getAllBooks() {
-  return await Book.find();
+  return await Book.find().cache();
+};
+
+/**
+ * Get book by id.
+ * @param {String} id a string that represents a book's id 
+ */
+async function getBookById(id) {
+  return await Book.findById(id).cache();
+}
+
+/**
+ * Search books.
+ * @param {Object} query express query object
+ * @returns A Promise or exceptin
+ */
+async function searchBooks(query) {
+  return await Book.find({ $or: 
+    [
+      { title: { '$regex': query.search, '$options': 'i' } }, 
+      { genre: { '$regex': query.search, '$options': 'i' } }
+    ]
+  }).cache({ expire: 10 });
 }

@@ -3,10 +3,10 @@ const router = express.Router();
 const bookService = require('../services/book.service');
 const authorize = require('../helpers/authentication');
 
-router.post('/', createBook);
+router.post('/', authorize(), createBook);
 router.get('/', getAllBooks);
-router.get('/', authorize(), getBooksByGenre);
-router.get('/', getBooksByPages);
+router.get('/query', searchBooks);
+router.get('/:id', getBookById);
 //router.get('/', postService.getAll);
 
 module.exports = router;
@@ -17,20 +17,20 @@ function createBook(req, res, next) {
     .catch(err => next(err))
 }
 
-function getBooksByGenre(req, res, next) {
-  bookService.getBooksByGenre(req.query.genre, req.user)
-    .then(books => res.json(books))
-    .catch(err => next(err)) 
-}
-
 function getAllBooks(req, res, next) {
   bookService.getAllBooks()
     .then(books => res.json(books))
     .catch(err => next(err))
 }
 
-function getBooksByPages(req, res, next) {
-  bookService.getBooksByPages(req.query.pages)
+function searchBooks(req, res, next) {
+  bookService.searchBooks(req.query)
+    .then(books => res.json(books))
+    .catch(err => next(err))
+}
+
+function getBookById(req, res, next) {
+  bookService.getBookById(req.params.id)
     .then(books => res.json(books))
     .catch(err => next(err))
 }
