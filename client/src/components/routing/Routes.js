@@ -4,7 +4,7 @@ import Register from '../auth/Register';
 import { Books } from '../books/Books';
 import { Search } from '../search/Search';
 import { PrivateRoute } from './PrivateRoute';
-import Dashboard from '../Dashboard';
+import Dashboard from '../dashboard/Dashboard';
 import { Authors } from '../authors/Authors';
 import Book from '../books/Book';
 import Author from '../authors/Author';

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { authActions } from '../actions';
+import { authActions } from '../../actions';
 
 class Navbar extends Component {
   handleLogout = () => {
