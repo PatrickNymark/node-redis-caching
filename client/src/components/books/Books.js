@@ -11,8 +11,10 @@ export default class Books extends Component {
     this.props.dispatch(bookActions.getAllBooks());
   }
 
-  handleDelete= (id) => {
-    bookService.deleteBook(id)
+  handleDelete = (id) => {
+    bookService.deleteBook(id).then(book => {
+      window.location.reload();
+    })
   }
 
   render() {

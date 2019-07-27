@@ -5,7 +5,7 @@ const authorize = require('../helpers/authentication');
 const clearCache = require('../helpers/clearCache');
 
 router.post('/', authorize(), clearCache, createBook);
-router.post('/:id', authorize(), deleteBook);
+router.post('/:id', authorize(), clearCache, deleteBook);
 router.get('/', getAllBooks);
 router.get('/query', searchBooks);
 router.get('/:id', getBookById);

@@ -34,3 +34,23 @@
   text-decoration: none;
 }
 
+.delete-book {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  background: #2B3252;
+  color: white;
+  font-size: 8px;
+  cursor: pointer;
+}
+
+.form-btn {
+  border: 1px solid #30385C;
+  background: white;
+  color: #30385C;
+}
+
+.form-btn:hover {
+  background: #30385C;
+  color: white;
+}
