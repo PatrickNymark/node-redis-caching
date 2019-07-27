@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { bookActions } from '../../actions';
+import { bookService } from '../../services';
 import { Link } from 'react-router-dom';
 import './style.css';
 import { Search } from '../search/Search';
@@ -10,8 +11,12 @@ export default class Books extends Component {
     this.props.dispatch(bookActions.getAllBooks());
   }
 
+  handleDelete= (id) => {
+    bookService.deleteBook(id)
+  }
+
   render() {
-    const { loading, books } = this.props;
+    const { loading, books, isAuthenticated } = this.props;
     return (
       <div className="books-page">
         <div className="header-container text-center">
@@ -28,6 +33,9 @@ export default class Books extends Component {
               return (
                 <div className="col-4" key={book._id}>
                   <div className="card card-book">
+                    {isAuthenticated && 
+                        <button onClick={() => this.handleDelete(book._id)} className="delete-book">DELETE</button>
+                    }
                     <img src={book.image} class="card-img-top" alt="..."></img>
                     <div className="card-body">
                       <h5 className="card-title">{book.title}</h5>
@@ -50,10 +58,12 @@ export default class Books extends Component {
 
 function mapStateToProps(state) {
   const { loading, books, errors } = state.books;
+  const { isAuthenticated } = state.authentication;
   return {
       loading,
       books,
-      errors
+      errors,
+      isAuthenticated
   };
 }
 

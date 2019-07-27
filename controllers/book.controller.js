@@ -25,7 +25,6 @@ function deleteBook(req, res, next) {
     .catch(err => next(err))
 }
 
-
 function getAllBooks(req, res, next) {
   bookService.getAllBooks()
     .then(books => res.json(books))

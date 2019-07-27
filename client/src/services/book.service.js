@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const bookService = {
     createBook,
+    deleteBook,
     getAllBooks,
     getBookById,
     searchBooks
@@ -15,6 +16,16 @@ function createBook(bookData) {
   return axios.post('/api/books', bookData).then(response => {
     return response.data
   });
+}
+
+/**
+ * Delete book
+ * @param {String} id string that represents book id
+ */
+function deleteBook(id) {
+  return axios.post(`/api/books/${id}`).then(response => {
+    return response.data
+  })
 }
 
 /**
