@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const bookService = require('../services/book.service');
 const authorize = require('../helpers/authentication');
+const clearCache = require('../helpers/clearCache');
 
-router.post('/', authorize(), createBook);
+router.post('/', authorize(), clearCache, createBook);
+router.post('/:id', authorize(), deleteBook);
 router.get('/', getAllBooks);
 router.get('/query', searchBooks);
 router.get('/:id', getBookById);
@@ -16,6 +18,13 @@ function createBook(req, res, next) {
     .then(book => res.json(book))
     .catch(err => next(err))
 }
+
+function deleteBook(req, res, next) {
+  bookService.deleteBook(req.params.id)
+    .then(book => res.json(book))
+    .catch(err => next(err))
+}
+
 
 function getAllBooks(req, res, next) {
   bookService.getAllBooks()

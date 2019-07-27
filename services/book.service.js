@@ -2,6 +2,7 @@ const Book = require('../models/Book');
 
 module.exports = {
   createBook,
+  deleteBook,
   getAllBooks,
   searchBooks,
   getBookById
@@ -18,6 +19,16 @@ async function createBook(bookData) {
   return await book.save();
 };
 
+/**
+ * Delete book.
+ * @param {String} id string that represents a book id.
+ * @returns A Promise or exception.
+ */
+async function deleteBook(id) {
+  const book = await Book.findById(id);
+  return await book.remove();
+};
+ 
 /**
  * Get all books.
  * @returns A Promise or exception 
