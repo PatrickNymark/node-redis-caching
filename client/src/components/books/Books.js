@@ -31,7 +31,7 @@ export default class Books extends Component {
             {books.length === 0 && <div className="container">
               <h5 className="text-center mt-2">No books found</h5>
             </div> } 
-            {books.map(book => {
+            {books && books.map(book => {
               return (
                 <div className="col-4" key={book._id}>
                   <div className="card card-book">
