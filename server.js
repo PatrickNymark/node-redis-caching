@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const errorHandler = require('./helpers/error-handler');
 const logger = require('morgan');
 
-
 // initialize
 const app = express();
 
