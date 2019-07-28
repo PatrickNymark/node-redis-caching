@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './style.css';
 import Modal from '../modal/Modal';
 import BookForm from '../books/BookForm';
+import AuthorForm from '../authors/AuthorForm';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -38,9 +39,9 @@ export default class Dashboard extends Component {
             <div className="col-6 text-center">
               <div className="dashboard-card">
                 <h4 className="text-white mb-4">AUTHORS</h4>
-                {/*<Modal open={this.state.modal} handleModal={this.handleModal}>
-                  <p onClick={this.handleModal} className="btn dashboard-button">Create Author</p>
-    </Modal> */}
+                <Modal btnText="Create Author" open={this.state.modal} handleModal={this.handleModal}>
+                  <AuthorForm />
+                </Modal> 
               </div>   
             </div>
           </div>
