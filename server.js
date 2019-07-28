@@ -26,6 +26,13 @@ require('./helpers/cache');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// routes
+app.use('/api/books', require('./controllers/book.controller'));
+app.use('/api/users', require('./controllers/user.controller'));
+app.use('/api/authors', require('./controllers/author.controller'));
+
+app.use(errorHandler);
+
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
@@ -35,13 +42,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-
-// routes
-app.use('/api/books', require('./controllers/book.controller'));
-app.use('/api/users', require('./controllers/user.controller'));
-app.use('/api/authors', require('./controllers/author.controller'));
-
-app.use(errorHandler);
 
 const port = process.env.PORT || 5000;
 
