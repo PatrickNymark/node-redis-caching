@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const errorHandler = require('./helpers/error-handler');
 const logger = require('morgan');
+const path = require('path');
 
 // initialize
 const app = express();
