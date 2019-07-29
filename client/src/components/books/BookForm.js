@@ -105,7 +105,8 @@ export default class BookForm extends Component {
               <div className="form-group">
                 <label className="float-left">Author</label>
                 <select className="form-control" onChange={this.handleChange} value={this.state.author} name="author">
-                  {this.state.authors.map(author => {
+                <option value="">Choose Author</option>
+                {this.state.authors.map(author => {
                     return <option key={author.id} value={author.id}>{author.name}</option>
                   })}
                 </select>

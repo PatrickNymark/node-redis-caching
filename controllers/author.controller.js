@@ -5,7 +5,7 @@ const authorize = require('../helpers/authentication');
 const clearCache = require('../helpers/clearCache');
 
 router.post('/', authorize(), clearCache, createAuthor);
-router.post('/:id', authorize(), clearCache, deleteAuthor)
+router.post('/:id', authorize(), clearCache, deleteAuthor);
 router.get('/', authorize(), getAllAuthors);
 router.get('/query', authorize(), searchAuthors);
 router.get('/:id', authorize(), getAuthorById);

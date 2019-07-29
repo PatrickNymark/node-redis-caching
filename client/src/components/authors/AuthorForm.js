@@ -58,6 +58,7 @@ export default class AuthorForm extends Component {
                   name="lastName" 
                   type="text" 
                   className="form-control" 
+                  placeholder="Enter last name"
                   onChange={this.handleChange}
                 />
               </div>

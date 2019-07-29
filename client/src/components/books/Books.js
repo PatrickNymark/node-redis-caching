@@ -38,7 +38,7 @@ export default class Books extends Component {
                     {isAuthenticated && 
                         <button onClick={() => this.handleDelete(book._id)} className="delete-book">DELETE</button>
                     }
-                    <img src={book.image} class="card-img-top" alt="..."></img>
+                    <img src={book.image} className="card-img-top" alt="..."></img>
                     <div className="card-body">
                       <h5 className="card-title">{book.title}</h5>
                       <h6 className="card-subtitle mb-2 text-muted">Pages: {book.pages}</h6>

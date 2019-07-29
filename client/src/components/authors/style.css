@@ -1,3 +1,21 @@
+.authors-page {
+  background: #30385C;
+  min-height: 94vh;
+}
+
+.header-container {
+  width: 100%;
+  height: 150px;
+  background: #2B3252;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.authors-header {
+  color: white;
+  padding-top: 50px;
+  font-size: 45px;
+}
+
 .card-authors {
   margin: 0 15px 15px 0;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
