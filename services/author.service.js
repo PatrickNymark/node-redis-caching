@@ -5,7 +5,8 @@ module.exports = {
   createAuthor,
   getAllAuthors,
   getAuthorById,
-  searchAuthors
+  searchAuthors,
+  deleteAuthor
 }
 
 /**
@@ -19,13 +20,23 @@ async function createAuthor(authorData) {
   return await author.save();
 };
 
+/**
+ * Delete author.
+ * @param {String} id a string that represents a author's id.
+ * @returns A Promise or exception.
+ */
+async function deleteAuthor(id) {
+  const author = await Author.findById(id);
+  return await author.remove();
+};
+
 /** 
  * Get all authors.
  * @param {String} user represents an authorized user id
  * @returns A Promise or exception.
  */
 async function getAllAuthors(user) {
-  return await Author.find().cache({ key: user });
+  return await Author.find().cache({ key: user });
 };
 
 /** 

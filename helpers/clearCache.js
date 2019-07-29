@@ -3,8 +3,8 @@ const { clearHash } = require('./cache');
 module.exports = clearCache;
 
 function clearCache(req, res, next) {
-  const test = "";
-  clearHash(test);
+  if(req.user.sub) clearHash(req.user.sub);
 
-  return next();
+  clearHash("");
+  return  next();
 }
