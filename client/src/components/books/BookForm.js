@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { bookService } from '../../services';
+import { bookService, authorService } from '../../services';
 import { history } from '../../helpers';
 import './style.css';
 
@@ -13,8 +13,17 @@ export default class BookForm extends Component {
       genre: '',
       author: '',
       image: '',
-      errors: {}
+      errors: {},
+      authors: []
     }
+  }
+
+  componentWillMount() {
+    authorService.getAllAuthors(true).then(authors => {
+      this.setState({
+        authors
+      })
+    })
   }
 
   handleChange = (e) => {
@@ -31,18 +40,15 @@ export default class BookForm extends Component {
       genre: this.state.genre,
       pages: this.state.pages,
       image: this.state.image,
+      author: this.state.author
     };
 
     bookService.createBook(bookData).then(response => {
       history.push('/books')
-    }).catch(err => {
-      this.setState({
-      errors: err
-    })})
+    })
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="container p-5">
         <h1>Add Book</h1>
@@ -98,13 +104,11 @@ export default class BookForm extends Component {
             <div className="col-6">
               <div className="form-group">
                 <label className="float-left">Author</label>
-                <input 
-                  name="author" 
-                  type="text" 
-                  className="form-control" 
-                  placeholder="Enter author id"
-                  onChange={this.handleChange}
-                />
+                <select className="form-control" onChange={this.handleChange} value={this.state.author} name="author">
+                  {this.state.authors.map(author => {
+                    return <option key={author.id} value={author.id}>{author.name}</option>
+                  })}
+                </select>
               </div> 
             </div>
           </div>

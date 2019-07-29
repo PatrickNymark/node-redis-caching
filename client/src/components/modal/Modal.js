@@ -21,14 +21,16 @@ export default class Modal extends Component {
     return (
       <div>
         <button onClick={this.handleModal} className="btn dashboard-button">{this.props.btnText}</button>
-        <div className={open ? 'modal' : 'modal-close'}>
+        {open &&  
+          <div className={open ? 'modal' : 'modal-close'}>
             <div className="container">
               <div className={open ? 'modal-open' : 'modal-close'}>
                 <span onClick={this.handleModal} className="close">&times;</span>
                 {this.props.children}
               </div>
             </div>
-        </div>
+          </div>
+        }
       </div>
     )
   }

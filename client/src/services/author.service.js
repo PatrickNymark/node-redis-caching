@@ -4,7 +4,8 @@ export const authorService = {
     createAuthor,
     getAllAuthors,
     getAuthorById,
-    searchAuthors
+    searchAuthors,
+    deleteAuthor
 };
 
 /**
@@ -18,10 +19,34 @@ function createAuthor(authorData) {
 }
 
 /**
+ * Delete author
+ * @param {String} id a string that represents a author's id 
+ */
+function deleteAuthor(id) {    
+  return axios.post(`/api/authors/${id}`).then(response => {
+    return response.data
+  });
+}
+
+/**
  * Get all authors
  */
-function getAllAuthors() {    
+function getAllAuthors(onlyName) {    
   return axios.get('/api/authors').then(response => {
+    // this is mainly used in case of a select author option
+    if(onlyName) {
+      const authorArray = [];
+      response.data.forEach(author => {
+        const newAuthor = {
+          id: author._id,
+          name: author.firstName + " " + author.lastName
+        }
+
+        authorArray.push(newAuthor);
+      })
+
+      return authorArray;
+    }
     return response.data
   });
 }
